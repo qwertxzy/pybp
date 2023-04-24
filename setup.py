@@ -9,11 +9,10 @@ setup(
   author_email="hi@qwertxzy.me",
   install_requires=[
     "sqlite3"
+  ],
+  classifiers = [
+    "Development Status :: 1 - Planning",
+    "Environment :: Console",
+    "Programming Language :: Python :: 3.10"
   ]
-)
-
-classifiers(
-  "Development Status :: 1 - Planning",
-  "Environment :: Console",
-  "Programming Language :: Python :: 3.10"
 )

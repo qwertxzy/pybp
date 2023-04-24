@@ -10,24 +10,26 @@ class ExecutionPlan:
     self.options = options
     self.actions = actions
 
+  @staticmethod
   def _create_template_db(cursor):
-      # Create options table
-      cursor.execute("""
-      CREATE TABLE options (
-        key TEXT, 
-        value TEXT
+    # Create options table
+    cursor.execute("""
+    CREATE TABLE options (
+      key TEXT, 
+      value TEXT
+    )
+    """)
+
+    # Create actions table
+    cursor.execute("""
+      CREATE TABLE actions (
+        command TEXT,
+        path TEXT,
+        status TEXT CHECK(status IN ('PLANNED', 'RUNNING', 'FINISHED'))
       )
-      """)
+    """)
 
-      # Create actions table
-      cursor.execute("""
-        CREATE TABLE actions (
-          command TEXT,
-          path TEXT,
-          status TEXT CHECK(status IN ('PLANNED', 'RUNNING', 'FINISHED'))
-        )
-      """)
-
+  @staticmethod
   def serialize(plan, path):
     if os.path.exists(path):
       print("Warning! File already exists and will be overwritten.")
@@ -49,11 +51,11 @@ class ExecutionPlan:
     con.commit()
     con.close()
 
-
+  @staticmethod
   def parse(path):
     con = sqlite3.connect(path)
     cursor = con.cursor()
 
     # parse options table
     res = cursor.execute("SELECT key, value FROM options")
-    raise NotImplemented("Continue implementing pls")
+    raise NotImplementedError("Continue implementing pls")
